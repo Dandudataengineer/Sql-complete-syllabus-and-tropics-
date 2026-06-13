@@ -1,0 +1,219 @@
+This is the most important SQL interview skill.
+
+Most candidates know SQL syntax, but they struggle to convert an English question into SQL logic.
+
+SQL Thinking Framework (5 Steps)
+
+Whenever an interviewer asks a question, think in this order:
+
+Step	Question to Ask Yourself
+1	What table(s) are involved?
+2	What columns do I need?
+3	Do I need filtering (WHERE)?
+4	Do I need grouping/aggregation?
+5	Do I need joins, subqueries, or window functions?
+Example 1
+Interview Question
+
+"Fetch all employees whose salary is greater than 50,000"
+
+Step 1: Identify Table
+employees
+Step 2: Required Columns
+All columns (*)
+Step 3: Filter Condition
+salary > 50000
+SQL
+SELECT *
+FROM employees
+WHERE salary > 50000;
+Example 2
+Interview Question
+
+"Find the total salary department wise"
+
+Analysis
+Need department
+Need total salary
+Need aggregation
+Need grouping
+SQL
+SELECT department,
+       SUM(salary) AS total_salary
+FROM employees
+GROUP BY department;
+Example 3
+Interview Question
+
+"Find departments having more than 10 employees"
+
+Analysis
+Count employees
+Group by department
+Filter aggregate result
+SQL
+SELECT department,
+       COUNT(*) AS employee_count
+FROM employees
+GROUP BY department
+HAVING COUNT(*) > 10;
+Example 4
+Interview Question
+
+"Display employee name and department name"
+
+Analysis
+employee_name -> employees table
+department_name -> departments table
+
+Need Join
+SQL
+SELECT e.employee_name,
+       d.department_name
+FROM employees e
+INNER JOIN departments d
+ON e.department_id = d.department_id;
+Example 5
+Interview Question
+
+"Find employees earning more than average salary"
+
+Analysis
+Need average salary first
+Compare employee salary with average
+Need subquery
+SQL
+SELECT *
+FROM employees
+WHERE salary >
+(
+SELECT AVG(salary)
+FROM employees
+);
+Example 6
+Interview Question
+
+"Find the highest-paid employee in each department"
+
+Analysis
+Group by department
+Need highest salary
+Need ranking
+SQL
+WITH CTE AS
+(
+SELECT *,
+       ROW_NUMBER() OVER
+       (
+       PARTITION BY department
+       ORDER BY salary DESC
+       ) rn
+FROM employees
+)
+SELECT *
+FROM CTE
+WHERE rn = 1;
+Example 7
+Interview Question
+
+"Find second highest salary"
+
+Analysis
+Sort salary descending
+Pick second record
+Window Function
+SQL
+WITH CTE AS
+(
+SELECT salary,
+       DENSE_RANK() OVER
+       (
+       ORDER BY salary DESC
+       ) rnk
+FROM employees
+)
+SELECT salary
+FROM CTE
+WHERE rnk = 2;
+Real Interview Keywords
+
+When you hear these words, immediately think:
+
+Keyword	SQL Concept
+Total	SUM()
+Average	AVG()
+Count	COUNT()
+Highest	MAX(), ROW_NUMBER()
+Lowest	MIN()
+Department wise	GROUP BY
+More than average	Subquery
+Top N	ORDER BY + LIMIT/TOP
+Each Department	PARTITION BY
+Duplicate Records	GROUP BY + HAVING
+Latest Record	ROW_NUMBER()
+Ranking	RANK(), DENSE_RANK()
+Compare Tables	JOIN
+Exists	EXISTS
+Missing Records	LEFT JOIN + NULL
+The Secret Formula
+
+Convert every question into this template:
+
+1. FROM (Which table?)
+
+2. JOIN (Need another table?)
+
+3. WHERE (Any filter?)
+
+4. GROUP BY (Need aggregation?)
+
+5. HAVING (Filter aggregated data?)
+
+6. WINDOW FUNCTION (Need ranking?)
+
+7. ORDER BY (Need sorting?)
+
+8. LIMIT/TOP (Need top records?)
+Example
+
+Question:
+
+"Find top 3 highest-paid employees from each department."
+
+Think:
+
+FROM employees
+
+Need department-wise ranking
+→ PARTITION BY department
+
+Highest salary
+→ ORDER BY salary DESC
+
+Top 3
+→ ROW_NUMBER() <= 3
+
+SQL:
+
+WITH CTE AS
+(
+SELECT *,
+       ROW_NUMBER() OVER
+       (
+       PARTITION BY department
+       ORDER BY salary DESC
+       ) rn
+FROM employees
+)
+SELECT *
+FROM CTE
+WHERE rn <= 3;
+Interview Success Tip
+
+Don't start writing SQL immediately.
+
+Spend 20–30 seconds explaining your thought process:
+
+"First I'll identify the table, then check whether aggregation is required. Since the question asks for department-wise totals, I'll use GROUP BY department and SUM(salary)."
+
+Interviewers often evaluate your logic and approach as much as the final query. A correct thought process with a small syntax mistake is usually viewed more positively than a correct query that you cannot explain.
