@@ -1,0 +1,40 @@
+| Concept             | Purpose                           | Keywords                       |
+| ------------------- | --------------------------------- | ------------------------------ |
+| SELECT              | Fetch data                        | SELECT                         |
+| WHERE               | Filter rows                       | WHERE, AND, OR, IN, BETWEEN    |
+| ORDER BY            | Sort data                         | ASC, DESC                      |
+| DISTINCT            | Remove duplicates                 | DISTINCT                       |
+| LIMIT/TOP           | Fetch top records                 | LIMIT, TOP                     |
+| Aggregate Functions | Calculations                      | COUNT, SUM, AVG, MIN, MAX      |
+| GROUP BY            | Group data                        | Department-wise, Category-wise |
+| HAVING              | Filter grouped data               | HAVING                         |
+| CASE WHEN           | Conditional logic                 | CASE                           |
+| Joins               | Combine tables                    | INNER, LEFT, RIGHT, FULL       |
+| Self Join           | Same table join                   | SELF JOIN                      |
+| Cross Join          | Cartesian product                 | CROSS JOIN                     |
+| Subquery            | Query inside query                | Nested Query                   |
+| Correlated Subquery | Row-by-row comparison             | EXISTS                         |
+| CTE                 | Temporary result set              | WITH                           |
+| Window Functions    | Ranking & analytics               | OVER()                         |
+| ROW_NUMBER()        | Unique ranking                    | PARTITION BY                   |
+| RANK()              | Ranking with gaps                 | RANK                           |
+| DENSE_RANK()        | Ranking without gaps              | DENSE_RANK                     |
+| LEAD()              | Next row value                    | LEAD                           |
+| LAG()               | Previous row value                | LAG                            |
+| UNION               | Combine results remove duplicates | UNION                          |
+| UNION ALL           | Combine results keep duplicates   | UNION ALL                      |
+| INTERSECT           | Common records                    | INTERSECT                      |
+| EXCEPT              | Difference records                | EXCEPT                         |
+| String Functions    | Text operations                   | UPPER, LOWER, SUBSTRING        |
+| Date Functions      | Date operations                   | GETDATE, DATEADD, DATEDIFF     |
+| NULL Handling       | Missing values                    | IS NULL, COALESCE              |
+| Views               | Virtual table                     | CREATE VIEW                    |
+| Stored Procedure    | Reusable SQL block                | CREATE PROCEDURE               |
+| Functions (UDF)     | Custom logic                      | CREATE FUNCTION                |
+| Triggers            | Auto execution                    | CREATE TRIGGER                 |
+| Indexes             | Performance                       | CLUSTERED, NONCLUSTERED        |
+| Transactions        | Data consistency                  | BEGIN, COMMIT, ROLLBACK        |
+| Pivot               | Rows to columns                   | PIVOT                          |
+| Unpivot             | Columns to rows                   | UNPIVOT                        |
+| Merge               | UPSERT operation                  | MERGE                          |
+| Dynamic SQL         | Runtime query creation            | EXEC                           |
