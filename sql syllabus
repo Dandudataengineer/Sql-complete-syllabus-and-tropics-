@@ -1,0 +1,251 @@
+1. SQL Fundamentals (Must Know)
+What is SQL?
+Databases vs Tables
+Data Types
+Creating Databases
+Creating Tables
+Constraints
+PRIMARY KEY
+FOREIGN KEY
+UNIQUE
+NOT NULL
+CHECK
+DEFAULT
+Commands
+CREATE TABLE customers (
+    customer_id INT PRIMARY KEY,
+    customer_name VARCHAR(100),
+    city VARCHAR(50)
+);
+2. Data Retrieval (Very Important)
+SELECT Statement
+SELECT * FROM customers;
+Filtering Data
+SELECT *
+FROM customers
+WHERE city='Hyderabad';
+Operators
+AND
+OR
+NOT
+IN
+BETWEEN
+LIKE
+EXISTS
+SELECT *
+FROM employees
+WHERE salary > 50000
+AND department='IT';
+3. Sorting & Limiting Data
+ORDER BY
+SELECT *
+FROM employees
+ORDER BY salary DESC;
+TOP / LIMIT
+SELECT TOP 10 *
+FROM employees;
+4. Aggregate Functions (Most Asked)
+Functions
+COUNT()
+SUM()
+AVG()
+MIN()
+MAX()
+SELECT
+COUNT(*) AS total_customers,
+AVG(salary) AS avg_salary
+FROM employees;
+5. GROUP BY & HAVING (Critical)
+GROUP BY
+SELECT department,
+COUNT(*)
+FROM employees
+GROUP BY department;
+HAVING
+SELECT department,
+AVG(salary)
+FROM employees
+GROUP BY department
+HAVING AVG(salary) > 50000;
+6. Joins (Highest Priority)
+INNER JOIN
+SELECT c.customer_name,
+o.order_amount
+FROM customers c
+INNER JOIN orders o
+ON c.customer_id=o.customer_id;
+Types of Joins
+INNER JOIN
+LEFT JOIN
+RIGHT JOIN
+FULL JOIN
+SELF JOIN
+CROSS JOIN
+7. Subqueries
+Single Row Subquery
+SELECT *
+FROM employees
+WHERE salary >
+(
+SELECT AVG(salary)
+FROM employees
+);
+Correlated Subquery
+SELECT *
+FROM employees e
+WHERE salary >
+(
+SELECT AVG(salary)
+FROM employees
+WHERE department=e.department
+);
+8. Common Table Expressions (CTE)
+
+Very important in interviews.
+
+WITH Sales_CTE AS
+(
+SELECT *
+FROM sales
+)
+SELECT *
+FROM Sales_CTE;
+9. Window Functions (Most Important for Data Engineers)
+ROW_NUMBER()
+SELECT *,
+ROW_NUMBER() OVER
+(PARTITION BY department
+ORDER BY salary DESC) rn
+FROM employees;
+Other Window Functions
+RANK()
+DENSE_RANK()
+LEAD()
+LAG()
+FIRST_VALUE()
+LAST_VALUE()
+NTILE()
+10. Set Operators
+UNION
+SELECT city FROM customers
+UNION
+SELECT city FROM suppliers;
+Other Operators
+UNION ALL
+INTERSECT
+EXCEPT / MINUS
+11. String Functions
+SELECT
+UPPER(name),
+LOWER(name),
+LEN(name),
+SUBSTRING(name,1,3)
+FROM customers;
+12. Date Functions
+SELECT
+GETDATE(),
+DATEADD(day,10,GETDATE()),
+DATEDIFF(day,'2025-01-01',GETDATE());
+13. CASE Statements
+SELECT employee_name,
+CASE
+WHEN salary > 100000 THEN 'High'
+WHEN salary > 50000 THEN 'Medium'
+ELSE 'Low'
+END Salary_Band
+FROM employees;
+14. Views
+CREATE VIEW vw_sales
+AS
+SELECT *
+FROM sales;
+15. Stored Procedures
+CREATE PROCEDURE GetEmployees
+AS
+BEGIN
+SELECT * FROM employees;
+END;
+16. Functions (UDF)
+Scalar Functions
+Table-Valued Functions
+CREATE FUNCTION GetBonus
+(
+ @Salary DECIMAL(10,2)
+)
+RETURNS DECIMAL(10,2)
+AS
+BEGIN
+ RETURN @Salary*0.10;
+END;
+17. Triggers
+CREATE TRIGGER trg_insert
+ON employees
+AFTER INSERT
+AS
+BEGIN
+PRINT 'Record Inserted';
+END;
+18. Indexes (Performance Tuning)
+Clustered Index
+Non-Clustered Index
+CREATE INDEX idx_name
+ON employees(employee_name);
+19. Transactions
+BEGIN TRANSACTION;
+
+UPDATE accounts
+SET balance=balance-1000
+WHERE account_id=1;
+
+COMMIT;
+Concepts
+COMMIT
+ROLLBACK
+SAVEPOINT
+20. SQL Performance Tuning (Data Engineer Level)
+Execution Plans
+Query Optimization
+Indexing Strategy
+Partitioning
+Statistics
+Query Cost Analysis
+21. Advanced SQL (Interview Focus)
+Pivot
+SELECT *
+FROM sales
+PIVOT
+(
+SUM(amount)
+FOR year IN ([2024],[2025])
+) p;
+Unpivot
+Recursive CTE
+Dynamic SQL
+MERGE Statement
+MERGE target t
+USING source s
+ON t.id=s.id
+WHEN MATCHED THEN
+UPDATE SET t.name=s.name
+WHEN NOT MATCHED THEN
+INSERT(id,name)
+VALUES(s.id,s.name);
+SQL Learning Roadmap (30 Days)
+Week	Topics
+Week 1	SELECT, WHERE, ORDER BY, GROUP BY, HAVING
+Week 2	Joins, Subqueries, Set Operators
+Week 3	CTEs, Window Functions, CASE, Date Functions
+Week 4	Views, Procedures, Functions, Indexes, Performance Tuning
+Top 10 Interview Topics (Learn First)
+Joins
+Group By & Having
+Aggregate Functions
+Window Functions
+CTEs
+Subqueries
+CASE Statements
+Date Functions
+Set Operators
+Indexes
+
+For a Data Engineer (Azure/Fabric/Spark/Databricks) role, spend 40% of your SQL practice on Joins, Window Functions, CTEs, Aggregations, and Query Optimization, because these topics appear most frequently in real projects and interviews.
